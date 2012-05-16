@@ -86,7 +86,7 @@ Function.does(
 HTMLElement.does(
 	'add', function(e) {
 		this.appendChild(typeof(e) == 'string' ? document.createTextNode(e) : e	)
-		return this
+		return window._ = this
 	},	
 	'tag', function(tag) {
 		return window[tag] = function(properties) {
@@ -98,15 +98,15 @@ HTMLElement.does(
 	},
 	'css', function(style) {
 		for (k in style) if (style.has(k)) this.style[k] = style[k]
-		return this
+		return window._ = this
 	},
 	'draw', function() {
 		arguments.length > 0 ? arguments[0].appendChild(this) : document.body.appendChild(this)
-		return this
+		return window._ = this
 	},
 	'remove', function() {
 		this.parentElement.removeChild(this)
-		return this
+		return window._ = this
 	},
 	'at', function(x,y) {
 		return this.css({ position: 'absolute', top: y + 'px', left: x + 'px'})
