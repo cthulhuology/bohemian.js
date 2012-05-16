@@ -23,6 +23,9 @@ Object.does(
 		var self = new proto()
 		return self.can('init') ? self.init.apply(self,arguments) : self
 	},
+	'called', function(name) {
+		return window[name] = this.new()
+	},
 	'after', function(i) {
 		return Array.prototype.slice.apply(this,[i+1])
 	},
