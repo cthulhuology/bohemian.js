@@ -110,12 +110,33 @@ HTMLElement.does(
 	'by', function(w,h) {
 		return this.css({ width: w + 'px', height: h + 'px' })
 	},
+	'font', function(f) {
+		return this.css({ fontFamily: f })	
+	},
 	'color', function(r,g,b,a) {
 		return this.css({ color: 'rgba(' + r + ',' + g + ',' + b + ',' + a + ')' })
 	},
 	'size', function(p) {
 		return this.css({ fontSize: p + 'px' })
-	}
+	},
+	'normal', function() {
+		return this.css({ fontStyle: 'normal', fontWeight: 'normal', textDecoration: 'none' })
+	},
+	'italic', function() {
+		return this.css({ fontStyle: 'italic' })
+	},
+	'bold', function() {
+		return this.css({ fontWeight: 'bold' })
+	},
+	'underline', function() {
+		return this.css({ textDecoration: 'underline' })
+	},
+	'overline', function() {
+		return this.css({ textDecoration: 'overline' })
+	},
+	'strikeout', function() {
+		return this.css({ textDecoration: 'line-through' })
+	},
 )
 
 HTMLElement.prototype.tag.every(['div','span','br','button','ul','ol','li','textarea','input','h1','h2','h3','h4','h5','a','script'])
