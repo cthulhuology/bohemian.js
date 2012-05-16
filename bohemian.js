@@ -99,7 +99,7 @@ HTMLElement.does(
 	'source', function(s) {
 		this.src = s
 		return window._ = this
-	}
+	},
 	'css', function(style) {
 		for (k in style) if (style.has(k)) this.style[k] = style[k]
 		return window._ = this
