@@ -20,7 +20,7 @@ Object.does(
 	'new', function() { 
 		var proto = function(){}
 		proto.prototype = this
-		var self = new child()
+		var self = new proto()
 		return self.can('init') ? self.init.apply(self,arguments) : self
 	},
 	'after', function(i) {
