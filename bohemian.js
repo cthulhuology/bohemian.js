@@ -111,7 +111,7 @@ HTMLElement.does(
 		this.css({ width: w + 'px', height: h + 'px' })
 		return this
 	},
-	'color' : function(r,g,b,a) {
+	'color', function(r,g,b,a) {
 		this.css({ color: 'rgba(' + r + ',' + g + ',' + b + ',' + a ')' })
 		return this
 	}
