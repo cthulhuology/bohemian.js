@@ -136,7 +136,7 @@ HTMLElement.does(
 	},
 	'strikeout', function() {
 		return this.css({ textDecoration: 'line-through' })
-	},
+	}
 )
 
 HTMLElement.prototype.tag.every(['div','span','br','button','ul','ol','li','textarea','input','h1','h2','h3','h4','h5','a','script'])
