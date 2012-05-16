@@ -102,6 +102,18 @@ HTMLElement.does(
 	'draw', function() {
 		arguments.length > 0 ? arguments[0].appendChild(this) : document.body.appendChild(this)
 		return this
+	},
+	'at', function(x,y) {
+		this.css({ position: 'absolute', top: y + 'px', left: x + 'px'})
+		return this
+	},
+	'by', function(w,h) {
+		this.css({ width: w + 'px', height: h + 'px' })
+		return this
+	},
+	'color' : function(r,g,b,a) {
+		this.css({ color: 'rgba(' + r + ',' + g + ',' + b + ',' + a ')' })
+		return this
 	}
 )
 
