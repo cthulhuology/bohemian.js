@@ -139,6 +139,13 @@ HTMLElement.does(
 	}
 )
 
-HTMLElement.prototype.tag.every(['div','span','br','button','ul','ol','li','textarea','input','h1','h2','h3','h4','h5','a','script'])
+HTMLElement.prototype.tag.every([
+	'div','span','br',
+	'button','a',
+	'ul','ol','li',
+	'textarea','input',
+	'h1','h2','h3','h4','h5',
+	'img','audio','video',
+	'script'])
 
 
