@@ -104,6 +104,10 @@ HTMLElement.does(
 		arguments.length > 0 ? arguments[0].appendChild(this) : document.body.appendChild(this)
 		return this
 	},
+	'remove', function() {
+		this.parentElement.removeChild(this)
+		return this
+	},
 	'at', function(x,y) {
 		return this.css({ position: 'absolute', top: y + 'px', left: x + 'px'})
 	},
