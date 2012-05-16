@@ -2,10 +2,12 @@
 Object.prototype.method = function(name,definition) {
 	this[name] = typeof(definition) == 'function' ? definition :
 		(function(value) { return function() { return value }})(definition)
+	return this
 }
 
 Object.prototype.does = function() {
 	for (var i = 0; i < arguments.length; i += 2) this.prototype.method(arguments[i],arguments[i+1])
+	return this
 }
 
 Object.does(
