@@ -93,7 +93,7 @@ HTMLElement.does(
 			var self = document.createElement(tag)
 			if (properties) (function(v,k) { self[k] = v }).each(properties)
 			if (arguments.length > 1) (function(e) { self.add(e) }).every(arguments.after(0))
-			return self
+			return window._ = self
 		}
 	},
 	'css', function(style) {
