@@ -112,7 +112,7 @@ HTMLElement.does(
 		return this
 	},
 	'color', function(r,g,b,a) {
-		this.css({ color: 'rgba(' + r + ',' + g + ',' + b + ',' + a ')' })
+		this.css({ color: 'rgba(' + r + ',' + g + ',' + b + ',' + a + ')' })
 		return this
 	}
 )
