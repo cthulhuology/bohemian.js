@@ -31,6 +31,9 @@ Bohemian('method','does',function() {
 		var self = new proto()
 		return this.can(self,'init') ? self.init.apply(self,arguments) : self
 	},
+	'named', function(name) {
+		return window[name] = this._	
+	},
 	'called', function(name) {
 		return window[name] = this._.new()
 	},
