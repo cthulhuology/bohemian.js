@@ -55,7 +55,7 @@ Bohemian('method','does',function() {
 	'each', function(m,o) {
 		for (k in o) if (o.has(k)) this[m](o[k],k)
 	},
-	'every', function(m.a) {
+	'every', function(m,a) {
 		for (var i = 0; i < a.length; ++i) this[m](a[i],i)
 	},
 	'xhr', function(method,url,data,headers) {
