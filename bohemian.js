@@ -19,17 +19,17 @@ Bohemian('method','does',function() {
 	for (var i = 0; i < arguments.length; i += 2) this.method(arguments[i],arguments[i+1])
 	return this })
 ('does',
-	'has', function(method) {
+	'has', function(o,method) {
 		return this._.hasOwnProperty(method)
 	},
-	'can', function(method) {
+	'can', function(o,method) {
 		return typeof(this._[method]) == 'function'
 	},
 	'new', function() { 
 		var proto = function(){}
 		proto.prototype = this._
 		var self = new proto()
-		return self.can('init') ? self.init.apply(self,arguments) : self
+		return this.can(self,'init') ? self.init.apply(self,arguments) : self
 	},
 	'called', function(name) {
 		return window[name] = this._.new()
@@ -53,7 +53,7 @@ Bohemian('method','does',function() {
 		return this.xhr.apply(this._,['delete',url,false,headers]) 
 	},
 	'each', function(m,o) {
-		for (k in o) if (o.has(k)) this[m](o[k],k)
+		for (k in o) if (this.has(o,k)) this[m](o[k],k)
 	},
 	'every', function(m,a) {
 		for (var i = 0; i < a.length; ++i) this[m](a[i],i)
@@ -87,7 +87,7 @@ Bohemian('method','does',function() {
 		return this._
 	},
 	'css', function(style) {
-		for (k in style) if (style.has(k)) this._.style[k] = style[k]
+		for (k in style) if (this.has(style,k)) this._.style[k] = style[k]
 		return this._
 	},
 	'draw', function() {
