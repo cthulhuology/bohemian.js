@@ -20,10 +20,10 @@ Bohemian('method','does',function() {
 	return this })
 ('does',
 	'has', function(o,method) {
-		return this._.hasOwnProperty(method)
+		return o.hasOwnProperty(method)
 	},
 	'can', function(o,method) {
-		return typeof(this._[method]) == 'function'
+		return typeof(o[method]) == 'function'
 	},
 	'new', function() { 
 		var proto = function(){}
