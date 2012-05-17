@@ -2,7 +2,7 @@
 
 Bohemian = function() { 
 	var self = arguments.callee; 
-	if (typeof(self[arguments[0]) == 'function') 
+	if (typeof(self[arguments[0]]) == 'function') 
 		self._ = self[arguments[0]].apply(self,Array.prototype.splice.apply(arguments,[1]))
 	else if (typeof(self._[arguments[0]]) == 'function')
 		self._ = self._[arguments[0]].apply(self._,Array.prototype.splice.apply(arguments,[1]))
