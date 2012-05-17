@@ -1,66 +1,62 @@
 // bohemian.js - just a casual casual easy thing
-Object.prototype.method = function(name,definition) {
+
+Bohemian = function() { 
+	var self = arguments.callee; 
+	if (typeof(self[arguments[0]) == 'function') 
+		self._ = self[arguments[0]].apply(self,Array.prototype.splice.apply(arguments,[1]))
+	else if (typeof(self._[arguments[0]]) == 'function')
+		self._ = self._[arguments[0]].apply(self._,Array.prototype.splice.apply(arguments,[1]))
+	return self 
+} 
+
+Bohemian.method = function(name,definition) {
 	this[name] = typeof(definition) == 'function' ? definition :
 		(function(value) { return function() { return value }})(definition)
 	return this
 }
 
-Object.prototype.does = function() {
-	for (var i = 0; i < arguments.length; i += 2) this.prototype.method(arguments[i],arguments[i+1])
-	return this
-}
-
-Object.does(
+Bohemian('method','does',function() {
+	for (var i = 0; i < arguments.length; i += 2) this.method(arguments[i],arguments[i+1])
+	return this })
+('does',
 	'has', function(method) {
-		return this.hasOwnProperty(method)
+		return this._.hasOwnProperty(method)
 	},
 	'can', function(method) {
-		return typeof(this[method]) == 'function'
+		return typeof(this._[method]) == 'function'
 	},
 	'new', function() { 
 		var proto = function(){}
-		proto.prototype = this
+		proto.prototype = this._
 		var self = new proto()
 		return self.can('init') ? self.init.apply(self,arguments) : self
 	},
 	'called', function(name) {
-		return window[name] = this.new()
+		return window[name] = this._.new()
 	},
 	'after', function(i) {
-		return Array.prototype.slice.apply(this,[i+1])
+		return Array.prototype.slice.apply(this._,[i+1])
 	},
 	'super', function(method) {
-		this.__proto__.__proto__[method].apply(this,arguments.after(0))
+		this._.__proto__.__proto__[method].apply(this._,arguments.after(0))
 	},
-	'isArray', false,
-	'isString', false,
-	'isNumber', false,
-	'isFunction', false
-)
-
-Number.does(
-	'isNumber', true
-)
-
-String.does(
-	'get', function(cb,headers) { return cb.xhr('get',this,false,headers) },
-	'post', function(cb,data,headers) { return cb.xhr('post',this,data,headers) },
-	'put', function(cb,data,headers) { return cb.xhr('put',this,data,headers) },
-	'delete', function(cb,headers) { return cb.xhr('delete',this,false,headers) },
-	'include', function() { (function(txt){ script({},txt).draw() }).xhr('get',this) },
-	'isString', true
-)
-
-Array.does(
-	'isArray', true
-)
-
-Function.does(
-	'each', function(o) {
-		for (k in o) if (o.has(k)) this(o[k],k)
+	'get', function(url,headers) { 
+		return this.xhr.apply(this._,['get',url,false,headers]) 
 	},
-	'every', function(a) {
-		for (var i = 0; i < a.length; ++i) this(a[i],i)
+	'post', function(url,data,headers) { 
+		return this.xhr.apply(this._, ['post',url,data,headers]) 
+	},
+	'put', function(url,data,headers) { 
+		return this.xhr.apply(this._,['put',url,data,headers]) 
+	},
+	'delete', function(url,headers) { 
+		return this.xhr.apply(this._,['delete',url,false,headers]) 
+	},
+	'each', function(m,o) {
+		for (k in o) if (o.has(k)) this[m](o[k],k)
+	},
+	'every', function(m.a) {
+		for (var i = 0; i < a.length; ++i) this[m](a[i],i)
 	},
 	'xhr', function(method,url,data,headers) {
 		var self = this
@@ -75,47 +71,32 @@ Function.does(
 		_.send(data ? data : '')
 		return this
 	},
-	'until', function(test) {
-		var self = this
-		if (! test()) {
-			self()
-			setTimeout(function() { self.until(test) },1000)
-		}
-	},
-	'then', function(continuation) {
-		this.method('continuations', this.continuations().concat(continuation))
-	},
-	'isFunction', true
-)
-
-HTMLElement.does(
 	'add', function(e) {
-		this.appendChild(typeof(e) == 'string' ? document.createTextNode(e) : e	)
-		return window._ = this
+		this._.appendChild(typeof(e) == 'string' ? document.createTextNode(e) : e	)
+		return this._
 	},	
 	'tag', function(tag) {
-		return window[tag] = function(properties) {
-			var self = document.createElement(tag)
-			if (properties) (function(v,k) { self[k] = v }).each(properties)
-			if (arguments.length > 1) (function(e) { self.add(e) }).every(arguments.after(0))
-			return window._ = self
-		}
+		this.method(tag,function() {
+			this._ = document.createElement(tag)
+			for (var i = 0; i < arguments.length; ++i) this.add(arguments[i])
+			return this._
+		})
 	},
 	'source', function(s) {
-		this.src = s
-		return window._ = this
+		this._.src = s
+		return this._
 	},
 	'css', function(style) {
-		for (k in style) if (style.has(k)) this.style[k] = style[k]
-		return window._ = this
+		for (k in style) if (style.has(k)) this._.style[k] = style[k]
+		return this._
 	},
 	'draw', function() {
-		arguments.length > 0 ? arguments[0].appendChild(this) : document.body.appendChild(this)
-		return window._ = this
+		arguments.length > 0 ? arguments[0].appendChild(this._) : document.body.appendChild(this._)
+		return this._
 	},
 	'remove', function() {
-		this.parentElement.removeChild(this)
-		return window._ = this
+		this._.parentElement.removeChild(this._)
+		return this._
 	},
 	'at', function(x,y) {
 		return this.css({ position: 'absolute', top: y + 'px', left: x + 'px'})
@@ -149,10 +130,8 @@ HTMLElement.does(
 	},
 	'strikeout', function() {
 		return this.css({ textDecoration: 'line-through' })
-	}
-)
-
-HTMLElement.prototype.tag.every([
+	})
+('every','tag',[
 	'div','span','br',
 	'button','a',
 	'ul','ol','li',
