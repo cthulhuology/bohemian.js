@@ -22,14 +22,15 @@ _('method','does',function() {
 ('does',
 	'push', function(o) {
 		this.dup()
-		this._ = o
+		return this._ = o
 	},
 	'dup', function() {
 		this.stack = this.stack ? this.stack : []
 		this.stack.push(this._)
+		return this._
 	},
 	'drop', function() {
-		this._ = this.stack.pop()	
+		return this.stack.pop()	
 	},
 	'has', function(o,method) {
 		return o.hasOwnProperty(method)
