@@ -133,13 +133,19 @@ _('method','does',function() {
 		this._.height = h
 		return this.css({ width: w + 'px', height: h + 'px' })
 	},
+	'fontSize', 12,
+	'fontFamily', 'Arial',
 	'font', function(f) {
+		this.method('fontFamily',f)
+		this.context().font = this.fontSize() + 'px ' + f
 		return this.css({ fontFamily: f })	
 	},
 	'color', function(r,g,b,a) {
 		return this.css({ color: 'rgba(' + r + ',' + g + ',' + b + ',' + a + ')' })
 	},
 	'size', function(p) {
+		this.method('fontSize',p)
+		this.context().font = p + 'px ' + this.fontFamily();
 		return this.css({ fontSize: p + 'px' })
 	},
 	'normal', function() {
@@ -237,5 +243,6 @@ _('method','does',function() {
 	'img','audio','video',
 	'script','canvas'])
 ('canvas')('as','screen')('by', window.innerWidth,window.innerHeight)('draw')('context')
+('font','Arial')('size',12)
 
 
