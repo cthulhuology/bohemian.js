@@ -25,12 +25,12 @@ _('method','does',function() {
 		return this._ = o
 	},
 	'dup', function() {
-		this.stack = this.stack ? this.stack : []
-		this.stack.push(this._)
+		this._stack = this.stack ? this.stack : []
+		this._stack.push(this._)
 		return this._
 	},
 	'drop', function() {
-		return this.stack.pop()	
+		return this._stack.pop()	
 	},
 	'has', function(o,method) {
 		return o.hasOwnProperty(method)
@@ -161,7 +161,71 @@ _('method','does',function() {
 	'clear', function() {
 		while(document.body.firstChild) document.body.removeChild(document.body.firstChild)
 		return this._
-	})
+	},
+	'context', function() {
+		// first time this method gets called it overrides itself with the screen drawing context!
+		this.method('context', this.screen().getContext('2d'))
+		return this._
+	},
+	'begin', function() {
+		this.context().beginPath()
+		return this._
+	},
+	'end', function() {
+		this.context().closePath()
+		return this._
+	},
+	'lineTo',function(x,y) {
+		this.context().lineTo(x,y)
+		return this._
+	},
+	'moveTo',function(x,y) {
+		this.context().moveTo(x,y)
+		return this._
+	},
+	'fill', function() {
+		this.context().fill()
+		return this._
+	},
+	'stroke', function() {
+		this.context().stroke()
+		return this._
+	},
+	'clip', function() {
+		this.context().clip()
+		return this._
+	},
+	'curveTo', function() {
+		switch(arguments.length) {
+			case 4:	this.context().quadraticCurveTo.apply(this.context(), arguments); break
+			case 5: this.context().arcTo.apply(this.context(), arguments); break
+			case 6: this.context().bezierCurveTo.apply(this.context(), arguments); break
+		}
+		return this._
+	},
+	'rect', function(x,y,w,h) {
+		this.context().rect(x,y,w,h)
+	},
+	'strokeText', function(text,x,y) {
+		this.context().strokeText(text,x,y)
+		return this._
+	},
+	'fillText', function(text,x,y)
+		this.context().fillText(text,x,y)
+		return this._
+	},
+	'clearRect', function(x,y,w,h) {
+		this.context().clearRect(x,y,w,h)
+		return this._
+	},
+	'fillRect', function(x,y,w,h) {
+		this.context().fillRect(x,y,w,h)
+		return this._
+	},
+	'getImageData', function(x,y,w,h) {
+		return this.context().getImageData(x,y,w,h)
+	}
+)
 ('every','tag',[
 	'div','span','br',
 	'button','a',
