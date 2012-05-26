@@ -5,7 +5,8 @@ _ = Bohemian = function() {
 	if (typeof(self[arguments[0]]) == 'function') 
 		self._ = self[arguments[0]].apply(self,Array.prototype.splice.apply(arguments,[1]))
 	else if (self._ && typeof(self._[arguments[0]]) == 'function')
-		self._ = self._[arguments[0]].apply(self._,Array.prototype.splice.apply(arguments,[1]))	
+		self._ = self._[arguments[0]].apply(self._,Array.prototype.splice.apply(arguments,[1]))
+	else self.push(argument[0])	// set the internal state if we don't know what to do with our args
 	return self 
 } 
 
@@ -19,6 +20,17 @@ _('method','does',function() {
 	for (var i = 0; i < arguments.length; i += 2) this.method(arguments[i],arguments[i+1])
 	return this })
 ('does',
+	'push', function(o) {
+		this.dup()
+		this._ = o
+	},
+	'dup', function() {
+		this.stack = this.stack ? this.stack : []
+		this.stack.push(this._)
+	},
+	'drop', function() {
+		this._ = this.stack.pop()	
+	},
 	'has', function(o,method) {
 		return o.hasOwnProperty(method)
 	},
@@ -152,6 +164,8 @@ _('method','does',function() {
 	'textarea','input',
 	'h1','h2','h3','h4','h5',
 	'img','audio','video',
-	'script'])
+	'script','canvas'])
+('canvas')('by', window.innerWidth,window.innerHeight)('draw')
+()
 
 
