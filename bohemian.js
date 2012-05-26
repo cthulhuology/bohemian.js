@@ -244,7 +244,7 @@ _('method','does',function() {
 	'h1','h2','h3','h4','h5',
 	'img','audio','video',
 	'script','canvas'])
-('canvas')('as','screen')('by', window.innerWidth,window.innerHeight)('draw')('context')
+('canvas')('as','screen')('at',0,0)('by', window.innerWidth,window.innerHeight)('draw')('context')
 ('font','Arial')('size',12)
 
 
