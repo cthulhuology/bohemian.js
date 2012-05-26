@@ -210,7 +210,7 @@ _('method','does',function() {
 		this.context().strokeText(text,x,y)
 		return this._
 	},
-	'fillText', function(text,x,y)
+	'fillText', function(text,x,y) {
 		this.context().fillText(text,x,y)
 		return this._
 	},
