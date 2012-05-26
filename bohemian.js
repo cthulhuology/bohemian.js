@@ -1,6 +1,6 @@
 // bohemian.js - just a casual casual easy thing
 
-Bohemian = function() { 
+_ = Bohemian = function() { 
 	var self = arguments.callee; 
 	if (typeof(self[arguments[0]]) == 'function') 
 		self._ = self[arguments[0]].apply(self,Array.prototype.splice.apply(arguments,[1]))
@@ -9,13 +9,13 @@ Bohemian = function() {
 	return self 
 } 
 
-Bohemian.method = function(name,definition) {
+_.method = function(name,definition) {
 	this[name] = typeof(definition) == 'function' ? definition :
 		(function(value) { return function() { return value }})(definition)
 	return this
 }
 
-Bohemian('method','does',function() {
+_('method','does',function() {
 	for (var i = 0; i < arguments.length; i += 2) this.method(arguments[i],arguments[i+1])
 	return this })
 ('does',
