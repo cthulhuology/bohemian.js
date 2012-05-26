@@ -6,7 +6,7 @@ _ = Bohemian = function() {
 		self._ = self[arguments[0]].apply(self,Array.prototype.splice.apply(arguments,[1]))
 	else if (self._ && typeof(self._[arguments[0]]) == 'function')
 		self._ = self._[arguments[0]].apply(self._,Array.prototype.splice.apply(arguments,[1]))
-	else self.push(argument[0])	// set the internal state if we don't know what to do with our args
+	else self.push(arguments[0])	// set the internal state if we don't know what to do with our args
 	return self 
 } 
 
