@@ -141,7 +141,7 @@ _('method','does',function() {
 		return this.css({ fontFamily: f })	
 	},
 	'color', function(r,g,b,a) {
-		this.context().fillStyle = this.context.strokeStyle = 'rgba(' + r + ',' + g + ',' + b + ')' 
+		this.context().fillStyle = this.context().strokeStyle = 'rgba(' + r + ',' + g + ',' + b + ')' 
 		return this.css({ color: 'rgba(' + r + ',' + g + ',' + b + ',' + a + ')' })
 	},
 	'size', function(p) {
