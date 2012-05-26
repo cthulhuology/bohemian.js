@@ -236,7 +236,7 @@ _('method','does',function() {
 	'h1','h2','h3','h4','h5',
 	'img','audio','video',
 	'script','canvas'])
-('canvas')('by', window.innerWidth,window.innerHeight)('draw')('as','screen')
+('canvas')('by', window.innerWidth,window.innerHeight)('draw')('context')('as','screen')
 () 
 
 
