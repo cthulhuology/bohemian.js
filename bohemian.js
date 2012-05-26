@@ -155,7 +155,8 @@ _('method','does',function() {
 		return this._
 	},
 	'replay', function() {
-		this.history.map(function(x) { this.apply(this,x) })
+		var self = this
+		this.history.map(function(x) { self.apply(self,x) })
 		return this._
 	})
 ('every','tag',[
