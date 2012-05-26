@@ -142,6 +142,14 @@ _('method','does',function() {
 	},
 	'strikeout', function() {
 		return this.css({ textDecoration: 'line-through' })
+	},
+	'clear', function() {
+		while(document.body.firstChild()) document.body.removeChild(document.body.firstChild())
+		return this._
+	},
+	'replay', funciton() {
+		map( function(x) { this.apply(this,x) }, this.history )
+		return this._
 	})
 ('every','tag',[
 	'div','span','br',
