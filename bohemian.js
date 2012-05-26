@@ -234,6 +234,10 @@ _('method','does',function() {
 	},
 	'getImageData', function(x,y,w,h) {
 		return this.context().getImageData(x,y,w,h)
+	},
+	'circle',function(x,y,radius) { 
+		this.context().arc(x,y,radius,0,2*Math.PI) 
+		return this._
 	}
 )
 ('every','tag',[
