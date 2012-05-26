@@ -253,4 +253,15 @@ _('method','does',function() {
 ('canvas')('as','screen')('at',0,0)('by', window.innerWidth,window.innerHeight)('draw')('context')
 ('font','Arial')('size',12)
 
+// Utilities:
+
+// Draw a circle connected to another circle connected by a curve
+function Connector(x1,y1,x2,y2) {
+	_('begin')('color',0,0,0,1)('moveTo',x1,y1)('curveTo',x1+(x2-x1)/2,y1,x2-(x2-x1)/2,y2,x2,y2)('stroke')('end')
+	('begin')('color',0,0,0,1.0)('circle',x1,y1,5)('fill')('end')
+	('begin')('circle',x1,y1,4)('color',255,255,255,1.0)('fill')('end')
+	('begin')('color',0,0,0,1.0)('circle',x2,y2,5)('fill')('end')
+	('begin')('circle',x2,y2,4)('color',255,255,255,1.0)('fill')('end') 
+}
+
 
