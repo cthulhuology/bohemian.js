@@ -2,20 +2,10 @@
 
 _ = Bohemian = function() { 
 	var self = arguments.callee
-
 	if (typeof(self[arguments[0]]) == 'function') 
 		self._ = self[arguments[0]].apply(self,Array.prototype.splice.apply(arguments,[1]))
 	else if (self._ && typeof(self._[arguments[0]]) == 'function')
-		self._ = self._[arguments[0]].apply(self._,Array.prototype.splice.apply(arguments,[1]))
-	
-	// append to history if we get this far!
-	if (self.recording) {
-		self.history =  self.history ? self.history : []
-		var args = Array.prototype.splice.apply(arguments,[0])
-		console.log(args)
-		// Something wicked is happening here
-		self.history.push(args)
-	}	
+		self._ = self._[arguments[0]].apply(self._,Array.prototype.splice.apply(arguments,[1]))	
 	return self 
 } 
 
@@ -153,19 +143,6 @@ _('method','does',function() {
 	},
 	'clear', function() {
 		while(document.body.firstChild) document.body.removeChild(document.body.firstChild)
-		return this._
-	},
-	'replay', function() {
-		var self = this
-		this.history.map(function(x) { self.apply(self,x) })
-		return this._
-	},
-	'record', function()  {
-		this.recording = true
-		return this._
-	},
-	'stop', function() {
-		this.recording = false
 		return this._
 	})
 ('every','tag',[
