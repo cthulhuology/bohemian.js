@@ -104,6 +104,9 @@ Bohemian('method','does',function() {
 	'at', function(x,y) {
 		return this.css({ position: 'absolute', top: y + 'px', left: x + 'px'})
 	},
+	'to', function(x,y) {
+		return this.css({ position: 'absolute', top: 1*y + this._.offsetTop + 'px', left: 1*x + this._.offsetLeft + 'px'})
+	}
 	'by', function(w,h) {
 		return this.css({ width: w + 'px', height: h + 'px' })
 	},
