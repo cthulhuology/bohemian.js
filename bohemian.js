@@ -9,12 +9,13 @@ _ = Bohemian = function() {
 		self._ = self._[arguments[0]].apply(self._,Array.prototype.splice.apply(arguments,[1]))
 	
 	// append to history if we get this far!
-	self.history =  self.history ? self.history : []
-	var args = Array.prototype.splice.apply(arguments,[0])
-	console.log(args)
-	// Something wicked is happening here
-	self.history.push(args)
-		
+	if (self.recording) {
+		self.history =  self.history ? self.history : []
+		var args = Array.prototype.splice.apply(arguments,[0])
+		console.log(args)
+		// Something wicked is happening here
+		self.history.push(args)
+	}	
 	return self 
 } 
 
@@ -157,6 +158,14 @@ _('method','does',function() {
 	'replay', function() {
 		var self = this
 		this.history.map(function(x) { self.apply(self,x) })
+		return this._
+	},
+	'record', function()  {
+		this.recording = true
+		return this._
+	},
+	'stop', function() {
+		this.recording = false
 		return this._
 	})
 ('every','tag',[
