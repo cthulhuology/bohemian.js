@@ -147,7 +147,7 @@ _('method','does',function() {
 		while(document.body.firstChild()) document.body.removeChild(document.body.firstChild())
 		return this._
 	},
-	'replay', funciton() {
+	'replay', function() {
 		map( function(x) { this.apply(this,x) }, this.history )
 		return this._
 	})
