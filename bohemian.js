@@ -169,7 +169,7 @@ _('method','does',function() {
 	'clear', function() {
 		while(document.body.firstChild) document.body.removeChild(document.body.firstChild)
 		this.context().clearRect(0,0,this.screen().width,this.screen().height)
-		document.body.add(this.screen())
+		document.body.appendChild(this.screen())
 		return this._
 	},
 	'context', function() {
