@@ -129,6 +129,8 @@ _('method','does',function() {
 		return this.css({ position: 'absolute', top: 1*y + this._.offsetTop + 'px', left: 1*x + this._.offsetLeft + 'px'})
 	},
 	'by', function(w,h) {
+		this._.width = w
+		this._.height = h
 		return this.css({ width: w + 'px', height: h + 'px' })
 	},
 	'font', function(f) {
