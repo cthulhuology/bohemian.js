@@ -2,8 +2,9 @@
 
 _ = Bohemian = function() { 
 	var self = arguments.callee
-//	self.history =  self.history ? self.history : []
-//	self.history.push(Array.prototype.splice.apply(arguments,[0]))
+	self.history =  self.history ? self.history : []
+	var args = Array.prototype.splice.apply(arguments,[0])
+	self.history.push(args)
 	if (typeof(self[arguments[0]]) == 'function') 
 		self._ = self[arguments[0]].apply(self,Array.prototype.splice.apply(arguments,[1]))
 	else if (typeof(self._[arguments[0]]) == 'function')
