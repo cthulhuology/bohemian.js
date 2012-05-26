@@ -89,6 +89,10 @@ Bohemian('method','does',function() {
 		this._.src = s
 		return this._
 	},
+	'href', function(u) {
+		this._.href = u
+		return this._
+	},
 	'css', function(style) {
 		for (k in style) if (this.has(style,k)) this._.style[k] = style[k]
 		return this._
