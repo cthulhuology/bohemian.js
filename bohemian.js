@@ -4,6 +4,8 @@ _ = Bohemian = function() {
 	var self = arguments.callee
 	self.history =  self.history ? self.history : []
 	var args = Array.prototype.splice.apply(arguments,[0])
+	console.log(args)
+	// Something wicked is happening here
 	self.history.push(args)
 	if (typeof(self[arguments[0]]) == 'function') 
 		self._ = self[arguments[0]].apply(self,Array.prototype.splice.apply(arguments,[1]))
