@@ -237,10 +237,13 @@ _('method','does',function() {
 	'getImageData', function(x,y,w,h) {
 		return this.context().getImageData(x,y,w,h)
 	},
-	'circle',function(x,y,radius) { 
+	'circle', function(x,y,radius) { 
 		this.context().arc(x,y,radius,0,2*Math.PI) 
 		return this._
-	}
+	},
+	'clone', function() {
+		return this.push(this._.cloneNode(true))	
+	},
 )
 ('every','tag',[
 	'div','span','br',
