@@ -243,7 +243,7 @@ _('method','does',function() {
 	},
 	'clone', function() {
 		return this.push(this._.cloneNode(true))	
-	},
+	}
 )
 ('every','tag',[
 	'div','span','br',
