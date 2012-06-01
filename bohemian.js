@@ -123,12 +123,20 @@ _('method','does',function() {
 		return this._
 	},
 	'at', function(x,y) {
+		this.method('x',x)
+		this.method('y',y)
+		this.context().moveTo(x,y)
 		return this.css({ position: 'absolute', top: y + 'px', left: x + 'px'})
 	},
 	'to', function(x,y) {
-		return this.css({ position: 'absolute', top: 1*y + this._.offsetTop + 'px', left: 1*x + this._.offsetLeft + 'px'})
+		this.method('x', this.x()+x)
+		this.method('y', this.y()+y)
+		this.context().moveTo(this.x(),this.y())
+		return this.css({ position: 'absolute', top: this.y() + 'px', left: this.x()  + 'px'})
 	},
 	'by', function(w,h) {
+		this.method('w',w)
+		this.method('h',h)
 		this._.width = w
 		this._.height = h
 		return this.css({ width: w + 'px', height: h + 'px' })
@@ -141,6 +149,10 @@ _('method','does',function() {
 		return this.css({ fontFamily: f })	
 	},
 	'color', function(r,g,b,a) {
+		this.method('r',r)
+		this.method('g',g)
+		this.method('b',b)
+		this.method('a',a)
 		this.context().fillStyle = 'rgba(' + r + ',' + g + ',' + b + ',' + a + ')' 
 		this.context().strokeStyle = 'rgba(' + r + ',' + g + ',' + b + ',' + a + ')' 
 		return this.css({ color: 'rgba(' + r + ',' + g + ',' + b + ',' + a + ')' })
@@ -188,11 +200,8 @@ _('method','does',function() {
 		return this._
 	},
 	'lineTo',function(x,y) {
+		this.to(x,y)
 		this.context().lineTo(x,y)
-		return this._
-	},
-	'moveTo',function(x,y) {
-		this.context().moveTo(x,y)
 		return this._
 	},
 	'fill', function() {
@@ -215,30 +224,30 @@ _('method','does',function() {
 		}
 		return this._
 	},
-	'rect', function(x,y,w,h) {
-		this.context().rect(x,y,w,h)
+	'rect', function() {
+		this.context().rect(this.x(),this.y(),this.w(),this.h())
 	},
-	'strokeText', function(text,x,y) {
-		this.context().strokeText(text,x,y)
+	'strokeText', function(text) {
+		this.context().strokeText(text,this.x(),this.y())
 		return this._
 	},
-	'fillText', function(text,x,y) {
-		this.context().fillText(text,x,y)
+	'fillText', function(text) {
+		this.context().fillText(text,this.x(),this.y())
 		return this._
 	},
-	'clearRect', function(x,y,w,h) {
-		this.context().clearRect(x,y,w,h)
+	'clearRect', function() {
+		this.context().clearRect(this.x(),this.y(),this.w(),this.h())
 		return this._
 	},
-	'fillRect', function(x,y,w,h) {
-		this.context().fillRect(x,y,w,h)
+	'fillRect', function() {
+		this.context().fillRect(this.x(),this.y(),this.w(),this.h())
 		return this._
 	},
-	'getImageData', function(x,y,w,h) {
-		return this.context().getImageData(x,y,w,h)
+	'getImageData', function() {
+		return this.context().getImageData(this.x(),this.y(),this.w(),this.h())
 	},
-	'circle', function(x,y,radius) { 
-		this.context().arc(x,y,radius,0,2*Math.PI) 
+	'circle', function(radius) { 
+		this.context().arc(this.x(),this.y(),radius,0,2*Math.PI) 
 		return this._
 	},
 	'clone', function() {
@@ -260,11 +269,11 @@ _('method','does',function() {
 
 // Draw a circle connected to another circle connected by a curve
 function Connector(x1,y1,x2,y2) {
-	_('begin')('color',0,0,0,1)('moveTo',x1,y1)('curveTo',x1+(x2-x1)/2,y1,x2-(x2-x1)/2,y2,x2,y2)('stroke')('end')
-	('begin')('color',0,0,0,1.0)('circle',x1,y1,5)('fill')('end')
-	('begin')('circle',x1,y1,4)('color',255,255,255,1.0)('fill')('end')
-	('begin')('color',0,0,0,1.0)('circle',x2,y2,5)('fill')('end')
-	('begin')('circle',x2,y2,4)('color',255,255,255,1.0)('fill')('end') 
+	_('begin')('color',0,0,0,1)('at',x1,y1)('curveTo',x1+(x2-x1)/2,y1,x2-(x2-x1)/2,y2,x2,y2)('stroke')('end')
+	('begin')('color',0,0,0,1.0)('at',x1,y1)('circle',5)('fill')('end')
+	('begin')('at',x1,y1)('circle',4)('color',255,255,255,1.0)('fill')('end')
+	('begin')('color',0,0,0,1.0)('at',x2,y2)('circle',5)('fill')('end')
+	('begin')('at',x2,y2)('circle',4)('color',255,255,255,1.0)('fill')('end') 
 }
 
 
