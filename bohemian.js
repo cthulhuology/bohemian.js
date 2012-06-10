@@ -122,6 +122,10 @@ _('method','does',function() {
 		this._.parentElement.removeChild(this._)
 		return this._
 	},
+	'context', function() {
+		this.method('context', this._.getContext('2d'))
+		return this._
+	},
 	'at', function(x,y) {
 		this.method('x',x)
 		this.method('y',y)
@@ -185,11 +189,6 @@ _('method','does',function() {
 		this.context().clearRect(0,0,this.screen().width,this.screen().height)
 		document.body.appendChild(this.screen())
 		return this._
-	},
-	'context', function() {
-		// first time this method gets called it overrides itself with the screen drawing context!
-		this.method('context', this.screen().getContext('2d'))
-		return this.screen().getContext('2d')
 	},
 	'begin', function() {
 		this.context().beginPath()
@@ -262,7 +261,7 @@ _('method','does',function() {
 	'h1','h2','h3','h4','h5',
 	'img','audio','video',
 	'script','canvas'])
-('canvas')('as','screen')('at',0,0)('by', window.innerWidth,window.innerHeight)('draw')('context')
+('canvas')('context')('as','screen')('at',0,0)('by', window.innerWidth,window.innerHeight)('draw')('context')
 ('font','Arial')('size',12)
 
 // Utilities:
