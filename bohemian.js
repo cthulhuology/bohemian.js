@@ -228,6 +228,7 @@ _('method','does',function() {
 	},
 	'rect', function() {
 		this.context().rect(this.x(),this.y(),this.w(),this.h())
+		return this._
 	},
 	'strokeText', function(text) {
 		this.context().strokeText(text,this.x(),this.y())
