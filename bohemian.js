@@ -189,7 +189,7 @@ _('method','does',function() {
 	'context', function() {
 		// first time this method gets called it overrides itself with the screen drawing context!
 		this.method('context', this.screen().getContext('2d'))
-		return this._
+		return this.screen().getContext('2d')
 	},
 	'begin', function() {
 		this.context().beginPath()
