@@ -30,7 +30,7 @@ _('method','does',function() {
 		return this._
 	},
 	'drop', function() {
-		return this._stack.pop()	
+		return this._stack ? this._stack.pop() : undefined
 	},
 	'has', function(o,method) {
 		return o.hasOwnProperty(method)
@@ -130,17 +130,20 @@ _('method','does',function() {
 		this.method('x',x)
 		this.method('y',y)
 		this.context().moveTo(x,y)
-		return this.css({ position: 'absolute', top: y + 'px', left: x + 'px'})
+		return this._ && this.css({ position: 'absolute', top: y + 'px', left: x + 'px'})
+			
+			
 	},
 	'to', function(x,y) {
 		this.method('x', this.x()+x)
 		this.method('y', this.y()+y)
 		this.context().moveTo(this.x(),this.y())
-		return this.css({ position: 'absolute', top: this.y() + 'px', left: this.x()  + 'px'})
+		return this._ && this.css({ position: 'absolute', top: this.y() + 'px', left: this.x()  + 'px'})
 	},
 	'by', function(w,h) {
 		this.method('w',w)
 		this.method('h',h)
+		if (!this._) return
 		this._.width = w
 		this._.height = h
 		return this.css({ width: w + 'px', height: h + 'px' })
@@ -150,7 +153,7 @@ _('method','does',function() {
 	'font', function(f) {
 		this.method('fontFamily',f)
 		this.context().font = this.fontSize() + 'px ' + f
-		return this.css({ fontFamily: f })	
+		return this._ && this.css({ fontFamily: f })	
 	},
 	'color', function(r,g,b,a) {
 		this.method('r',r)
@@ -159,30 +162,30 @@ _('method','does',function() {
 		this.method('a',a)
 		this.context().fillStyle = 'rgba(' + r + ',' + g + ',' + b + ',' + a + ')' 
 		this.context().strokeStyle = 'rgba(' + r + ',' + g + ',' + b + ',' + a + ')' 
-		return this.css({ color: 'rgba(' + r + ',' + g + ',' + b + ',' + a + ')' })
+		return this._ && this.css({ color: 'rgba(' + r + ',' + g + ',' + b + ',' + a + ')' })
 	},
 	'size', function(p) {
 		this.method('fontSize',p)
 		this.context().font = p + 'px ' + this.fontFamily();
-		return this.css({ fontSize: p + 'px' })
+		return this._ && this.css({ fontSize: p + 'px' })
 	},
 	'normal', function() {
-		return this.css({ fontStyle: 'normal', fontWeight: 'normal', textDecoration: 'none' })
+		return this._ && this.css({ fontStyle: 'normal', fontWeight: 'normal', textDecoration: 'none' })
 	},
 	'italic', function() {
-		return this.css({ fontStyle: 'italic' })
+		return this._ && this.css({ fontStyle: 'italic' })
 	},
 	'bold', function() {
-		return this.css({ fontWeight: 'bold' })
+		return this._ && this.css({ fontWeight: 'bold' })
 	},
 	'underline', function() {
-		return this.css({ textDecoration: 'underline' })
+		return this._ && this.css({ textDecoration: 'underline' })
 	},
 	'overline', function() {
-		return this.css({ textDecoration: 'overline' })
+		return this._ && this.css({ textDecoration: 'overline' })
 	},
 	'strikeout', function() {
-		return this.css({ textDecoration: 'line-through' })
+		return this._ && this.css({ textDecoration: 'line-through' })
 	},
 	'clear', function() {
 		while(document.body.firstChild) document.body.removeChild(document.body.firstChild)
@@ -262,7 +265,7 @@ _('method','does',function() {
 	'img','audio','video',
 	'script','canvas'])
 ('canvas')('as','screen')('context')('at',0,0)('by', window.innerWidth,window.innerHeight)('draw')
-('font','Arial')('size',12)
+('font','Arial')('size',12)('drop')
 
 // Utilities:
 
