@@ -202,8 +202,8 @@ _('method','does',function() {
 		return this._
 	},
 	'lineTo',function(x,y) {
-		this.to(x,y)
 		this.context().lineTo(x,y)
+	//	this.at(x,y)
 		return this._
 	},
 	'fill', function() {
@@ -265,18 +265,6 @@ _('method','does',function() {
 	'h1','h2','h3','h4','h5',
 	'img','audio','video',
 	'script','canvas'])
-('canvas')('as','screen')('context')('at',0,0)('by', window.innerWidth,window.innerHeight)('draw')
+('canvas')('draw')('as','screen')('context')('at',0,0)('by', window.innerWidth,window.innerHeight)
 ('font','Arial')('size',12)('drop')
-
-// Utilities:
-
-// Draw a circle connected to another circle connected by a curve
-function Connector(x1,y1,x2,y2) {
-	_('begin')('color',0,0,0,1)('at',x1,y1)('curveTo',x1+(x2-x1)/2,y1,x2-(x2-x1)/2,y2,x2,y2)('stroke')('end')
-	('begin')('color',0,0,0,1.0)('at',x1,y1)('circle',5)('fill')('end')
-	('begin')('at',x1,y1)('circle',4)('color',255,255,255,1.0)('fill')('end')
-	('begin')('color',0,0,0,1.0)('at',x2,y2)('circle',5)('fill')('end')
-	('begin')('at',x2,y2)('circle',4)('color',255,255,255,1.0)('fill')('end') 
-}
-
 
