@@ -30,7 +30,7 @@ _('does',
 		('begin')('at',x1,y1)('circle',4)('color',255,255,255,1.0)('fill')('end')
 		('begin')('color',0,0,0,1.0)('at',x2,y2)('circle',5)('fill')('end')
 		('begin')('at',x2,y2)('circle',4)('color',255,255,255,1.0)('fill')('end') 
-	},
+	}
 )
 
 
