@@ -1,4 +1,4 @@
-// bohemian.js - just a casual casual easy thing
+// html.js
 //
 // © 2013 David J Goehrig <dave@dloh.org>
 // All rights reserved.
@@ -22,51 +22,38 @@
 // 
 
 
-_ = function() { 
-	var parents = Array.prototype.splice.call(arguments,0)
-	var self = function() {
-		var $ = arguments.callee
-		var method = arguments[0]
-		var args = Array.prototype.splice.call(arguments,1)
-		if (typeof($[method]) == 'function')
-			return $[method].apply($,args)
-		for (i in parents) if (parents[i]("may",method))
-			return parents[i]("lookup",method).apply($,args)
-		$("*",method,args)
-	}
-	self.does = function(method,fun) {
-		this[method] = fun
-		return this	
-	}
-	self.has = function(property,value) {
-		this[property] = function() {
-			return value
-		}
-		return this
-	}
-	self.can = function(method) {
-		if (typeof(this[method]) == "function")
-			return true
-		for (var i in parents) 
-			if (parents[i]("may",method))
-				return true
-		return false
-	}
-	self.may = function(method) {
-		return typeof(this[method]) == "function"
-	}
-	self.lookup = function(method) {
-		return this[method]	
-	}
-	self["*"] = function(method,args) {
-		console.log(this, "doesn't", method, "with", args)
-		return this
-	}
-	self.is = function(parent) {
-		parents.unshift(parent)
-		return this
-	}
-	return self 
-}
+// a sample Bohemian.js based web framework for node
 
-module.exports =  { '_' : _ }
+$ = require('./bohemian.js')._
+
+html = $()
+('does', 'tag', function() {
+	var args = Array.prototype.slice.call(arguments,0)
+	for (i in args) (function(t) {
+		this("does",t, function() {
+			this('response').write('<' + t + '>')
+			for (var i in arguments) 
+				this('response').write(arguments[i])
+			this('response').write('</' + t + '>')
+			return this
+		})
+	}).call(this,args[i])
+	return this
+})
+
+html('tag','b','i','p','pre','h1','h2','h3','h4','h5')
+
+var http = require("http")
+http.createServer(function(request, response) {
+	response.writeHead(200, {"Content-Type": "text/plain"})
+	html('has','response',response)
+		('b', "Bold Text")
+		('h1','h1 heading')
+		('h2','h2 heading')
+		('h3','h3 heading')
+		('h4','h4 heading')
+		('h5','h5 heading')
+	response.end()
+}).listen(6969)
+
+
